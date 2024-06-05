@@ -17,3 +17,6 @@ C:\Users\John\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\net6.0\refint\Conso
 C:\Users\John\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\net6.0\ConsoleApp4.pdb
 C:\Users\John\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\net6.0\ConsoleApp4.genruntimeconfig.cache
 C:\Users\John\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\net6.0\ref\ConsoleApp4.dll
+C:\Users\John\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\net6.0\SharpDX.dll
+C:\Users\John\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\net6.0\SharpDX.Direct3D11.dll
+C:\Users\John\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\net6.0\SharpDX.DXGI.dll

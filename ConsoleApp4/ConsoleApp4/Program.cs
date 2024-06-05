@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Management;
+using System.Diagnostics;
+using SharpDX.Direct3D;
+using SharpDX.DXGI;
 
 namespace SystemInfoApp
 {
@@ -21,7 +23,7 @@ namespace SystemInfoApp
                 GetRamInfo();
 
                 Console.WriteLine("\nFetching GPU Info...");
-                GetGpuInfo();
+                GetDedicatedVideoMemory();
 
                 Console.WriteLine("\nFetching Hidden Processes...");
                 GetHiddenProcesses();
@@ -69,18 +71,6 @@ namespace SystemInfoApp
             }
         }
 
-        static void GetGpuInfo()
-        {
-            var searcher = new ManagementObjectSearcher("select * from Win32_VideoController");
-            foreach (var item in searcher.Get())
-            {
-                Console.WriteLine($"  Name: {item["Name"]}");
-                Console.WriteLine($"  Adapter RAM: {Math.Round(Convert.ToDouble(item["AdapterRAM"]) / (1024 * 1024 * 1024), 2)} GB");
-                Console.WriteLine($"  Driver Version: {item["DriverVersion"]}");
-                Console.WriteLine($"  Video Processor: {item["VideoProcessor"]}");
-            }
-        }
-
         static void GetHiddenProcesses()
         {
             var hiddenProcesses = Process.GetProcesses()
@@ -107,33 +97,25 @@ namespace SystemInfoApp
         {
             try
             {
-                // Check if the process is a system process
                 if (IsSystemProcess(process))
                 {
-                    // If it's a system process, it's not hidden
                     return false;
                 }
 
-                // Check if the process has a main window
                 if (process.MainWindowHandle != IntPtr.Zero)
                 {
-                    // If it has a main window, it's not hidden
                     return false;
                 }
 
-                // Check if the process is hidden by other means (e.g., no main window)
                 if (string.IsNullOrWhiteSpace(process.MainWindowTitle) && process.Threads.Count == 0)
                 {
-                    // If the process has no threads and no visible title, it's likely hidden
                     return true;
                 }
 
-                // If none of the conditions above are met, the process is not hidden
                 return false;
             }
             catch (Exception)
             {
-                // Unable to determine if the process is hidden, so consider it hidden
                 return true;
             }
         }
@@ -144,13 +126,16 @@ namespace SystemInfoApp
             return systemProcesses.Contains(process.ProcessName, StringComparer.OrdinalIgnoreCase);
         }
 
-        // Import Windows API functions
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
-        static extern bool IsIconic(IntPtr hWnd);
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
-        static extern bool IsWindowVisible(IntPtr hWnd);
+        // Removed the unnecessary external method declaration
+        static void GetDedicatedVideoMemory()
+        {
+            var factory = new Factory1();
+            foreach (var adapter in factory.Adapters)
+            {
+                var desc = adapter.Description;
+                Console.WriteLine($"  Name: {desc.Description}");
+                Console.WriteLine($"  Adapter RAM: {desc.DedicatedVideoMemory / (1024 * 1024), 2} GB");
+            }
+        }
     }
 }
