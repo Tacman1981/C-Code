@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "WjUZezIhZiqoqIyLvOtpc3YlvjFrQwkGbBLcYOzpcVXPhzqjT5oEFH6K3yDrn8REu9E6ptshyx3+AEUqtcU3yg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\John\\source\\repos\\ConsoleApp4\\ConsoleApp4\\ConsoleApp4.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\John\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
+    "C:\\Users\\John\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
